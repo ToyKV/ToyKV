@@ -1,6 +1,6 @@
 # only for CMake 3.12 or later:
 file(GLOB_RECURSE HEADER_LIST CONFIGURE_DEPENDS 
-  "${PROJECT_SOURCE_DIR}/include/*.hpp"
+  "${PROJECT_SOURCE_DIR}/include/*.h"
 )
 
 # Or you just add header file to HEADER_LIST one by one

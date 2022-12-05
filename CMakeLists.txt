@@ -1,10 +1,10 @@
-cmake_minimum_required(VERSION 3.14...3.23)
+cmake_minimum_required(VERSION 3.14)
 
-project(HelloProject
+project(ToyKV
   VERSION
     1.0
   DESCRIPTION
-    "a Hello Project!"
+    "a kv storage for educational purpose!"
   LANGUAGES
     CXX
 )
@@ -33,8 +33,7 @@ if(CCACHE_FOUND)
   set_property(GLOBAL PROPERTY RULE_LAUNCH_LINK ccache)
 endif(CCACHE_FOUND)
 
-# TODO: set you target name!
-set(LIBRARY_NAME mylib)
+set(LIBRARY_NAME toykv)
 
 # 3rdparty dir:
 set(PROJECT_TRDPARTY_DIR ${PROJECT_SOURCE_DIR}/3rdparty)
