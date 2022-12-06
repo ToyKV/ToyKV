@@ -81,3 +81,6 @@ tmp
 
 # public/index.html for httpd
 public/
+
+# python cache
+cmake/__pycache__/
