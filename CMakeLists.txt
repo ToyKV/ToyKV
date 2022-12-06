@@ -54,3 +54,4 @@ add_subdirectory(example)
 list(APPEND CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake)
 
 include(FormatAndTidy)
+include(CppLint)
