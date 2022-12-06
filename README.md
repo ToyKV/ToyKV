@@ -1,6 +1,7 @@
 # ToyKV
 a kv storage for educational purpose.
 
+## 项目依赖
 The requirements are:
 - CMake 3.14+ highly recommended.
 - A C++17 compatible compiler (doctest needed!).
@@ -11,33 +12,52 @@ The requirements are:
 - cpplint
 - ccache
 
+以Ubuntu为例:
+```
+  # Update apt-get.
+  sudo apt-get -y update
+
+  # Install packages.
+  sudo apt-get -y install \
+      build-essential \
+      clang-12 \
+      clang-format-12 \
+      clang-tidy-12 \
+      cmake \
+      doxygen \
+      git \
+      g++-12 \
+      pkg-config \
+      zlib1g-dev \
+      python-pip
+
+  # Install cpplint
+  pip install --user cpplint
+  # Install fmt
+  sudo apt install libfmt-dev
+  # Install doctest
+  sudo apt install doctest
+```
+
 ## How To Use ?
-To configure:
-```
-cmake -S . -B build
-```
-Add `-GNinja` if you have Ninja.
 
-if you want to add tests, just add `-DBUILD_TESTS=on`  
-
-To build:
+### 编译ToyKV
 ```
-cmake --build build
+mkdir build && cd build
+cmake ..
+make -j12
 ```
-
-To test(`--target` can be written as `-t` in CMake 3.15+):
+### 检查代码风格以及格式化
+需要执行过上面的命令
 ```
-cmake --build build --target test
+make clangformat
+make check-lint
+make check-clang-tidy
 ```
-
-To clang-format:
+### 测试
 ```
-cmake --build build --target clangformat
-```
-
-To clang-tidy:
-```
-cmake --build build --target clangtidy
+cmake .. -DBUILD_TESTS=ON
+make -j12
 ```
 
 ## 应该遵守的规范
@@ -56,8 +76,8 @@ cmake --build build --target clangtidy
 commit message格式:
 ```
 <type>(<scope>): <subject>
-type(必须)
 ```
+type(必须):  
 用于说明git commit的类别，只允许使用下面的标识。
 - feat：新功能（feature）。
 - fix/to：修复bug，可以是QA发现的BUG，也可以是研发自己发现的BUG。
@@ -73,11 +93,11 @@ type(必须)
 - merge：代码合并。
 - sync：同步主线或分支的Bug。
 
-scope(可选)
+scope(可选):  
 scope用于说明 commit 影响的范围，比如数据层、控制层、视图层等等，视项目不同而不同。
 例如在Angular，可以是location，browser，compile，compile，rootScope， ngHref，ngClick，ngView等。如果你的修改影响了不止一个scope，你可以使用*代替。
 
-subject(必须)
+subject(必须):  
 subject是commit目的的简短描述，不超过50个字符。
 
 结尾不加句号或其他标点符号。
