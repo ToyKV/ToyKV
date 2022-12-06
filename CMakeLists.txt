@@ -23,6 +23,7 @@ endif()
 set(CMAKE_EXPORT_COMPILE_COMMANDS on)
 
 # Options
+# if you want to build tests, make it ON
 option(BUILD_TESTS "Build test executable" OFF)
 
 # add ccache 
@@ -38,7 +39,8 @@ set(LIBRARY_NAME toykv)
 # 3rdparty dir:
 set(PROJECT_TRDPARTY_DIR ${PROJECT_SOURCE_DIR}/3rdparty)
 
-add_subdirectory(src)
+# add_subdirectory(src)
+add_subdirectory(toykv)
 
 if (BUILD_TESTS)
   include(CTest)
