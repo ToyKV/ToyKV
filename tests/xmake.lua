@@ -1,3 +1,5 @@
+add_requires("spdlog", {system=false, configs = {header_only = true, fmt_external=true}})
+add_requireconfs("spdlog.fmt", {system = false, override = true, version = "9.1.0", configs = {header_only = true}})
 add_requires("doctest", {system = false})
 
 target("test_hello")
@@ -11,4 +13,11 @@ target("test_skiplist")
   set_group("tests")
   add_files("$(projectdir)/tests/storage/test_skiplist.cpp")
   add_packages("doctest", "fmt")
+  add_deps("toykv")
+
+target("test_logger")
+  set_kind("binary")
+  set_group("tests")
+  add_files("$(projectdir)/tests/common/test_logger.cpp")
+  add_packages("doctest", "spdlog")
   add_deps("toykv")
