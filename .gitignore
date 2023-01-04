@@ -84,3 +84,6 @@ public/
 
 # python cache
 cmake/__pycache__/
+
+# xmake
+.xmake/
