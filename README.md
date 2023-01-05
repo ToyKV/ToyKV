@@ -3,66 +3,45 @@ a kv storage for educational purpose.
 
 ## 项目依赖
 The requirements are:
-- CMake 3.14+ highly recommended.
-- A C++17 compatible compiler (doctest needed!).
-- fmt
-- doctest (test needed)
+- xmake 2.7.0+
+- A C++17 compatible compiler.
 - clang-format 
 - clang-tidy 
 - cpplint
 - ccache
 
-以Ubuntu为例:
+以Ubuntu为例(其他Linux发行版需要参考脚本去更改):
+在终端执行以下命令
 ```
-  # Update apt-get.
-  sudo apt-get -y update
-
-  # Install packages.
-  sudo apt-get -y install \
-      build-essential \
-      clang-12 \
-      clang-format-12 \
-      clang-tidy-12 \
-      cmake \
-      doxygen \
-      git \
-      g++-12 \
-      pkg-config \
-      zlib1g-dev \
-      python-pip
-
-  # Install cpplint
-  pip install --user cpplint
-  # Install fmt
-  sudo apt install libfmt-dev
-  # Install doctest
-  sudo apt install doctest
+bash script/build_environment.sh
 ```
 
 ## How To Use ?
 
 ### 编译ToyKV
 ```
-mkdir build && cd build
-cmake ..
-make -j12
+xmake build
 ```
-### 检查代码风格以及格式化
-需要执行过上面的命令
+### 格式化
 ```
-make clangformat
-make check-lint
-make check-clang-tidy
+xmake format
+```
+### 生成compile_commands.json (如果使用clangd则需要):
+```
+xmake project -k compile_commands
 ```
 ### 测试
 ```
-cmake .. -DBUILD_TESTS=ON
-make -j12
+xmake run <test-target>
 ```
+例如项目中tests文件夹中有`test_hello.cpp`
+那可以运行`xmake run test_hello` (前提是在tests/xmake.lua中定义了测试目标，参照这个test_hello写即可)
 
 ## 应该遵守的规范
 
 ### 代码规范
+// TODO: 目前刚切换到xmake，代码格式化检查暂未支持
+
 我们使用`Google Style`作为代码规范，所有代码提交前需检查代码是否符合规范：
 - 使用`make clangforamt`进行代码格式化
 - 使用`make check-lint`检查代码是否符合`Google Style`
