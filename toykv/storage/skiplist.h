@@ -17,7 +17,7 @@ class SkipList {
    public:
     explicit Iterator(const SkipList &list);
 
-    const KeyType Key() const ;
+    const KeyType Key() const;
     bool Valid();
     void Next();
     void Prev();
