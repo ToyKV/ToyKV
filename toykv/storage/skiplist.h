@@ -35,12 +35,8 @@ public:
     // 如果迭代器位于有效节点，返回true
     bool Valid();
 
-    // 返回当前位置的key
-    // 要求：valid()
     const KeyType Key() const ;
-
-    // 前进到下一个位置
-    // 要求：valid()
+    bool Valid();
     void Next();
 
     // 前进到上一个位置
