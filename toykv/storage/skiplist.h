@@ -36,7 +36,7 @@ public:
     bool Valid();
 
     const KeyType Key() const ;
-    bool Valid();
+
     void Next();
 
     // 前进到上一个位置
