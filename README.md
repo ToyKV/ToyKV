@@ -40,12 +40,11 @@ xmake run <test-target>
 ## 应该遵守的规范
 
 ### 代码规范
-// TODO: 目前刚切换到xmake，代码格式化检查暂未支持
 
 我们使用`Google Style`作为代码规范，所有代码提交前需检查代码是否符合规范：
-- 使用`make clangforamt`进行代码格式化
-- 使用`make check-lint`检查代码是否符合`Google Style`
-- 使用`make check-clang-tidy`再次检查代码
+- 使用`xmake format`进行代码格式化
+- 使用`xmake run check-lint`检查代码是否符合`Google Style`
+- 使用`xmake run check-tidy`再次检查代码 (TODO: check-tidy仍然有bug，会检查到第三方库的头文件，这是不应该的)
 以上提到的内容依赖下面3种工具:
 - clang-format
 - clang-tidy
