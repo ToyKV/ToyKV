@@ -180,7 +180,9 @@ bool SkipList<KeyType, Comparator>::Contains(const KeyType &key) {
 template <typename KeyType, class Comparator>
 Node<KeyType, Comparator> *SkipList<KeyType, Comparator>::FindLessThan(const KeyType &key) const {
   // 没有节点
-  if (count_ == 0) return head_;
+  if (count_ == 0) {
+    return head_;
+  }
   Node<KeyType, Comparator> *curr = head_;
   for (int i = currnet_level_; i >= 0; i--) {
     while (curr->forward_[i] != nullptr && compare_(curr->forward_[i]->GetKey(), key) < 0) {
@@ -192,8 +194,9 @@ Node<KeyType, Comparator> *SkipList<KeyType, Comparator>::FindLessThan(const Key
 
 template <typename KeyType, class Comparator>
 Node<KeyType, Comparator> *SkipList<KeyType, Comparator>::FindGreaterOrEqual(const KeyType &key) const {
-  if (count_ == 0) return head_;
-
+  if (count_ == 0) {
+    return head_;
+  }
   Node<KeyType, Comparator> *curr = head_;
 
   for (int i = currnet_level_; i >= 0; i--) {
@@ -210,7 +213,9 @@ template <typename KeyType, class Comparator>
 Node<KeyType, Comparator> *SkipList<KeyType, Comparator>::FindLast() const {
   Node<KeyType, Comparator> *curr = head_;
   for (int i = currnet_level_; i >= 0; i--) {
-    while (curr->forward_[i] != nullptr) curr = curr->forward_[i];
+    while (curr->forward_[i] != nullptr) {
+      curr = curr->forward_[i];
+    }
   }
   return curr;
 }
@@ -239,7 +244,9 @@ inline void SkipList<KeyType, Comparator>::Iterator::Next() {
 template <typename KeyType, class Comparator>
 inline void SkipList<KeyType, Comparator>::Iterator::Prev() {
   node_ = list_->FindLessThan(node_->GetKey());
-  if (node_ == list_->head_) node_ = nullptr;
+  if (node_ == list_->head_) {
+    node_ = nullptr;
+  }
 }
 
 template <typename KeyType, class Comparator>
