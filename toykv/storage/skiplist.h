@@ -72,19 +72,19 @@ class SkipList {
 
  private:
   // 获得一个随机的层数
-  int get_random_level();
+  int GetRandomLevel();
 
   // 创建新节点
-  Node<KeyType, Comparator> *create_node(KeyType key, int level);
+  Node<KeyType, Comparator> *CreateNode(KeyType key, int level);
 
   // 找到第一位 < key的节点
-  Node<KeyType, Comparator> *find_less_than(const KeyType &key) const;
+  Node<KeyType, Comparator> *FindLessThan(const KeyType &key) const;
 
   // 找到第一位 >= key的节点
-  Node<KeyType, Comparator> *find_greater_or_equal(const KeyType &key) const;
+  Node<KeyType, Comparator> *FindGreaterOrEqual(const KeyType &key) const;
 
   // 找到最后一位节点
-  Node<KeyType, Comparator> *find_last() const;
+  Node<KeyType, Comparator> *FindLast() const;
 };
 
 template <typename KeyType, class Comparator>
@@ -100,12 +100,12 @@ SkipList<KeyType, Comparator>::~SkipList() {
 }
 
 template <typename KeyType, class Comparator>
-Node<KeyType, Comparator> *SkipList<KeyType, Comparator>::create_node(KeyType key, int level) {
+Node<KeyType, Comparator> *SkipList<KeyType, Comparator>::CreateNode(KeyType key, int level) {
   return new Node<KeyType, Comparator>(key, level);
 }
 
 template <typename KeyType, class Comparator>
-int SkipList<KeyType, Comparator>::get_random_level() {
+int SkipList<KeyType, Comparator>::GetRandomLevel() {
   int level = 0;
   unsigned int seed = time(nullptr);
   for (;; level++) {
@@ -125,7 +125,7 @@ void SkipList<KeyType, Comparator>::Insert(const KeyType &key) {
 
   // 从跳表的最高层开始，查找相当于“二分查找”
   for (int i = currnet_level_; i >= 0; i--) {
-    while (curr->forward_[i] != nullptr && compare_(curr->forward_[i]->get_key(), key) < 0) {
+    while (curr->forward_[i] != nullptr && compare_(curr->forward_[i]->GetKey(), key) < 0) {
       curr = curr->forward_[i];
     }
     update[i] = curr;
@@ -133,9 +133,9 @@ void SkipList<KeyType, Comparator>::Insert(const KeyType &key) {
 
   curr = curr->forward_[0];
 
-  if (curr == nullptr || curr->get_key() != key) {
+  if (curr == nullptr || curr->GetKey() != key) {
     // 每一层插入不插入概率50%，得到一个随机层数
-    int random_level = get_random_level();
+    int random_level = GetRandomLevel();
 
     // 如果random_level > m_current_level，超出的部分要添加头
     if (random_level > currnet_level_) {
@@ -147,7 +147,7 @@ void SkipList<KeyType, Comparator>::Insert(const KeyType &key) {
     }
 
     // 生成要插入的节点
-    Node<KeyType, Comparator> *target_node = create_node(key, random_level);
+    Node<KeyType, Comparator> *target_node = CreateNode(key, random_level);
 
     // 插入节点
     for (int i = 0; i <= random_level; i++) {
@@ -165,25 +165,25 @@ bool SkipList<KeyType, Comparator>::Contains(const KeyType &key) {
 
   // 从跳表的最高层开始"二分查找"
   for (int i = currnet_level_; i >= 0; i--) {
-    while (curr->forward_[i] != nullptr && (compare_(curr->forward_[i]->get_key(), key) < 0)) {
+    while (curr->forward_[i] != nullptr && (compare_(curr->forward_[i]->GetKey(), key) < 0)) {
       curr = curr->forward_[i];
     }
   }
   curr = curr->forward_[0];
 
-  if (curr != nullptr && compare_(curr->get_key(), key) == 0) {
+  if (curr != nullptr && compare_(curr->GetKey(), key) == 0) {
     return true;
   }
   return false;
 }
 
 template <typename KeyType, class Comparator>
-Node<KeyType, Comparator> *SkipList<KeyType, Comparator>::find_less_than(const KeyType &key) const {
+Node<KeyType, Comparator> *SkipList<KeyType, Comparator>::FindLessThan(const KeyType &key) const {
   // 没有节点
   if (count_ == 0) return head_;
   Node<KeyType, Comparator> *curr = head_;
   for (int i = currnet_level_; i >= 0; i--) {
-    while (curr->forward_[i] != nullptr && compare_(curr->forward_[i]->get_key(), key) < 0) {
+    while (curr->forward_[i] != nullptr && compare_(curr->forward_[i]->GetKey(), key) < 0) {
       curr = curr->forward_[i];
     }
   }
@@ -191,13 +191,13 @@ Node<KeyType, Comparator> *SkipList<KeyType, Comparator>::find_less_than(const K
 }
 
 template <typename KeyType, class Comparator>
-Node<KeyType, Comparator> *SkipList<KeyType, Comparator>::find_greater_or_equal(const KeyType &key) const {
+Node<KeyType, Comparator> *SkipList<KeyType, Comparator>::FindGreaterOrEqual(const KeyType &key) const {
   if (count_ == 0) return head_;
 
   Node<KeyType, Comparator> *curr = head_;
 
   for (int i = currnet_level_; i >= 0; i--) {
-    while (curr->forward_[i] != nullptr && compare_(curr->forward_[i]->get_key(), key) < 0) {
+    while (curr->forward_[i] != nullptr && compare_(curr->forward_[i]->GetKey(), key) < 0) {
       curr = curr->forward_[i];
     }
   }
@@ -207,7 +207,7 @@ Node<KeyType, Comparator> *SkipList<KeyType, Comparator>::find_greater_or_equal(
 }
 
 template <typename KeyType, class Comparator>
-Node<KeyType, Comparator> *SkipList<KeyType, Comparator>::find_last() const {
+Node<KeyType, Comparator> *SkipList<KeyType, Comparator>::FindLast() const {
   Node<KeyType, Comparator> *curr = head_;
   for (int i = currnet_level_; i >= 0; i--) {
     while (curr->forward_[i] != nullptr) curr = curr->forward_[i];
@@ -228,7 +228,7 @@ inline bool SkipList<KeyType, Comparator>::Iterator::Valid() {
 
 template <typename KeyType, class Comparator>
 inline const KeyType SkipList<KeyType, Comparator>::Iterator::Key() const {
-  return node_->get_key();
+  return node_->GetKey();
 }
 
 template <typename KeyType, class Comparator>
@@ -238,13 +238,13 @@ inline void SkipList<KeyType, Comparator>::Iterator::Next() {
 
 template <typename KeyType, class Comparator>
 inline void SkipList<KeyType, Comparator>::Iterator::Prev() {
-  node_ = list_->find_less_than(node_->get_key());
+  node_ = list_->FindLessThan(node_->GetKey());
   if (node_ == list_->head_) node_ = nullptr;
 }
 
 template <typename KeyType, class Comparator>
 inline void SkipList<KeyType, Comparator>::Iterator::Seek(const KeyType &key) {
-  node_ = list_->find_greater_or_equal(key);
+  node_ = list_->FindGreaterOrEqual(key);
 }
 
 template <typename KeyType, class Comparator>
@@ -254,5 +254,5 @@ inline void SkipList<KeyType, Comparator>::Iterator::SeekToFirst() {
 
 template <typename KeyType, class Comparator>
 inline void SkipList<KeyType, Comparator>::Iterator::SeekToLast() {
-  node_ = list_->find_last();
+  node_ = list_->FindLast();
 }

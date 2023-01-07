@@ -17,7 +17,7 @@ class Node {
         delete []forward_;
     }
 
-    KeyType get_key() {
+    KeyType GetKey() {
         return this->key_;
     }
 
