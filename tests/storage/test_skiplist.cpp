@@ -5,13 +5,13 @@
 #include "toykv/storage/skiplist.h"
 
 TEST_CASE("test skiplist") {
-  auto skip_list = std::make_unique<SkipList<int>>();
+  auto skip_list = std::make_unique<SkipList<int, IntCmp>>(12);
   for (int i = 0; i < 10; ++i) {
     skip_list->Insert(i);
   }
   fmt::print("--------\n");
 
-  auto iter = std::make_unique<SkipList<int>::Iterator>(*skip_list);
+  auto iter = std::make_unique<SkipList<int, IntCmp>::Iterator>(skip_list.get());
   for (iter->SeekToFirst(); iter->Valid(); iter->Next()) {
     fmt::print("{}\n", iter->Key());
   }
