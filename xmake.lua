@@ -27,5 +27,5 @@ target("check-tidy")
   on_run(function (target)
     os.run("xmake project -k compile_commands")
     --[[ os.run("sh $(projectdir)/script/check_tidy.sh") ]]
-    os.run("python $(projectdir)/script/run_clang_tidy.py -p ./ ")
+    os.run("python $(projectdir)/script/run_clang_tidy.py -j 12")
   end)

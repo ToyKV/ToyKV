@@ -1,7 +1,7 @@
 #pragma once
 
-#include <time.h>
 #include <cstdlib>
+#include <ctime>
 #include <iostream>
 #include "toykv/storage/node.h"
 struct IntCmp {
@@ -20,7 +20,7 @@ class SkipList {
   // 返回是否有和key相等的节点
   bool Contains(const KeyType &key);
 
-  explicit SkipList(int);
+  explicit SkipList(int level);
 
   ~SkipList();
 
@@ -31,7 +31,7 @@ class SkipList {
     // 如果迭代器位于有效节点，返回true
     bool Valid();
 
-    const KeyType Key() const;
+    KeyType Key() const;
 
     void Next();
 
@@ -70,7 +70,6 @@ class SkipList {
   // 跳表的目前的层数
   int currnet_level_;
 
- private:
   // 获得一个随机的层数
   int GetRandomLevel();
 
@@ -171,10 +170,7 @@ bool SkipList<KeyType, Comparator>::Contains(const KeyType &key) {
   }
   curr = curr->forward_[0];
 
-  if (curr != nullptr && compare_(curr->GetKey(), key) == 0) {
-    return true;
-  }
-  return false;
+  return static_cast<bool>(curr != nullptr && compare_(curr->GetKey(), key) == 0);
 }
 
 template <typename KeyType, class Comparator>
@@ -232,7 +228,7 @@ inline bool SkipList<KeyType, Comparator>::Iterator::Valid() {
 }
 
 template <typename KeyType, class Comparator>
-inline const KeyType SkipList<KeyType, Comparator>::Iterator::Key() const {
+inline KeyType SkipList<KeyType, Comparator>::Iterator::Key() const {
   return node_->GetKey();
 }
 
