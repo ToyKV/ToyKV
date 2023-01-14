@@ -18,6 +18,8 @@ jobs:
       - name: build project
         run:
           xmake build -y
+      - name: generate compile_commands.json
+        run:
           xmake project -k compile_commands
 
       - uses: cpp-linter/cpp-linter-action@main
@@ -28,7 +30,6 @@ jobs:
         with:
           style: file
           files-changed-only: false
-          thread-comments: true
 
       - name: Fail fast?!
         if: steps.linter.outputs.checks-failed != 0
