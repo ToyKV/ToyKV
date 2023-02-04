@@ -1,5 +1,5 @@
 #include <bits/stdc++.h>
-using namespace std;
+//using namespace std;
 // 双向链表节点定义，泛型key与value
 template <class K, class V>
 class Node {
@@ -51,8 +51,8 @@ class LRUCache {
       remove(cur);  // 这里仅仅删除哈希双向链表中的节点，不必删除哈希表中的
       // 将节点重新插入到缓冲区的头部
       setHead(cur);
-    } else  // 2.当该 key 值不存在
-    {
+    } 
+    else { // 2.当该 key 值不存在 
       Node<K, V> *node = new Node<K, V>(key, value);
       // 判断当前缓冲区大小已经满了
       if (p.size() >= size) {
@@ -78,11 +78,8 @@ class LRUCache {
       head = cur->next;
     else if (cur == tail)  // 当前节点是 tail
       tail = cur->pre;
-    else  // 当前节点是一般节点
-    {
-      cur->pre->next = cur->next;
-      cur->next->pre = cur->pre;
-    }
+    else   // 当前节点是一般节点
+      cur->pre->next = cur->next, cur->next->pre = cur->pre;
   }
   // 将当前节点插入到头部
   void setHead(Node<K, V> *cur) {
