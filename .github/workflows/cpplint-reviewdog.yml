@@ -1,0 +1,14 @@
+name: Check-CPPlint-By-Reviewdog
+on: [pull_request]
+
+jobs:
+  cpplint:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@master
+    - uses: reviewdog/action-cpplint@master
+      with:
+        github_token: ${{ secrets.github_token }}
+        reporter: github-pr-review
+        flags: --linelength=120 # Optional
+        filter: "-legal/copyright,-build/header_guard,-runtime/references,-build/c++11"

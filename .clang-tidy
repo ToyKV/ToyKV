@@ -44,7 +44,7 @@ Checks:     '
             -modernize-use-nodiscard,
             -modernize-use-auto,
             -modernize-use-default-member-init,
-            -modernize-use-trailing-return-type,
+            # -modernize-use-trailing-return-type,
             -modernize-return-braced-init-list,
             -readability-convert-member-functions-to-static,
             -readability-identifier-length,
@@ -53,6 +53,8 @@ Checks:     '
             -readability-make-member-function-const,
             -readability-qualified-auto,
 #            -readability-redundant-access-specifiers,
+            # -header-fileter=.*,
+            -system-headers
             '
 CheckOptions:
   - { key: readability-identifier-naming.ClassCase,           value: CamelCase  }
@@ -66,7 +68,7 @@ CheckOptions:
   - { key: readability-identifier-naming.UnionCase,           value: CamelCase  }
   - { key: readability-identifier-naming.VariableCase,        value: lower_case }
 WarningsAsErrors: '*'
-HeaderFilterRegex: '/(src|test)/include'
+HeaderFilterRegex: '.*'
 AnalyzeTemporaryDtors: true
 
 #### Disabled checks and why: #####
